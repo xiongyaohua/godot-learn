@@ -12,11 +12,11 @@ script/source = "extends Control
 
 var tween_hover: Tween
 var grabed := false
+var grab_offset := Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -38,7 +38,17 @@ func _on_mouse_exited() -> void:
 	tween_hover.tween_property(self, \"scale\", Vector2.ONE, 0.5)
 	
 func _gui_input(event: InputEvent) -> void:
-	pass
+	if event is InputEventMouseButton:
+		var evt := event as InputEventMouseButton
+		if evt.button_index == MOUSE_BUTTON_LEFT:
+			grabed = evt.pressed
+			grab_offset = evt.position
+	
+	if grabed and event is InputEventMouseMotion:
+		var evt := event as InputEventMouseMotion
+		position = evt.global_position - grab_offset
+		
+		
 
 "
 
