@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=4 uid="uid://dbryvgquywvcn"]
+
+[ext_resource type="Texture2D" uid="uid://dliswdug8g41" path="res://icon.svg" id="1_g53ty"]
+
+[sub_resource type="GDScript" id="GDScript_kw1ti"]
+script/source = "extends Control
+## A play card.
+##
+## It supports the following features:
+## 1. Boundy enlarge when hoovering
+## 2. Grabing and tilt based on moving speed
+
+var tween_hover: Tween
+var grabed := false
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+	
+func _on_mouse_entered() -> void:
+	if tween_hover and tween_hover.is_running():
+		tween_hover.kill()
+		
+	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween_hover.tween_property(self, \"scale\", Vector2(1.2, 1.2), 0.5)
+
+func _on_mouse_exited() -> void:
+	if tween_hover and tween_hover.is_running():
+		tween_hover.kill()
+		
+	tween_hover = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
+	tween_hover.tween_property(self, \"scale\", Vector2.ONE, 0.5)
+	
+func _gui_input(event: InputEvent) -> void:
+	pass
+"
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Card" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 453.0
+offset_top = 156.0
+offset_right = 453.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 128)
+script = SubResource("GDScript_kw1ti")
+
+[node name="TextureRect" type="TextureRect" parent="Card"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1, 2)
+texture = ExtResource("1_g53ty")
+
+[node name="Shadow" type="TextureRect" parent="Card/TextureRect"]
+modulate = Color(0.102672, 0.102672, 0.102672, 1)
+show_behind_parent = true
+layout_mode = 0
+offset_left = -15.0
+offset_top = 10.0
+offset_right = 113.0
+offset_bottom = 138.0
+texture = ExtResource("1_g53ty")
+
+[connection signal="mouse_entered" from="Card" to="Card" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Card" to="Card" method="_on_mouse_exited"]
