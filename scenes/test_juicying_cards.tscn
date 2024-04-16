@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 	pass
 	
 func _on_mouse_entered() -> void:
-	print(\"enter\")
+	# child nodes must pass or ignore mouse event
 	if tween_hover and tween_hover.is_running():
 		tween_hover.kill()
 		
