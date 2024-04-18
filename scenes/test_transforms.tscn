@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=4 uid="uid://bye38unyve8ok"]
+
+[ext_resource type="Texture2D" uid="uid://dliswdug8g41" path="res://icon.svg" id="1_26303"]
+
+[node name="TestTransforms" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(352, 251)
+texture = ExtResource("1_26303")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Icon" type="Sprite2D" parent="CanvasLayer"]
+self_modulate = Color(1, 0.44961, 0.587866, 1)
+position = Vector2(212, 437)
+texture = ExtResource("1_26303")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(188, 317)
+rotation = 0.308923
+ignore_rotation = false
+zoom = Vector2(2, 2)
+limit_right = 800
+drag_horizontal_enabled = true
+editor_draw_limits = true
+editor_draw_drag_margin = true
